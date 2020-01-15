@@ -131,5 +131,8 @@ class AutoConstructorTest {
     String alias = "testQ";
     alias = alias.toLowerCase(Locale.ENGLISH);
     System.out.println(alias);
+
+    String LINE_SEPARATOR = System.getProperty("line.separator","\n");
+    System.out.println(LINE_SEPARATOR);
   }
 }
