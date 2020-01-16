@@ -99,6 +99,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
  * @author Clinton Begin
  * <p>
  * mybatis核心配置类
+ * MyBatis所有的配置信息都维持在Configuration对象之中
  */
 public class Configuration {
 
@@ -149,6 +150,9 @@ public class Configuration {
    */
   protected Class<?> configurationFactory;
 
+  /**
+   * 属性保存的是代理类信息
+   */
   protected final MapperRegistry mapperRegistry = new MapperRegistry(this);
   protected final InterceptorChain interceptorChain = new InterceptorChain();
   protected final TypeHandlerRegistry typeHandlerRegistry = new TypeHandlerRegistry(this);
@@ -156,7 +160,7 @@ public class Configuration {
   protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 
   /**
-   * 存储SQL信息
+   * 存储SQL信息  增删查改等标签内容
    */
   protected final Map<String, MappedStatement> mappedStatements = new StrictMap<MappedStatement>("Mapped Statements collection")
     .conflictMessageProducer((savedValue, targetValue) ->
