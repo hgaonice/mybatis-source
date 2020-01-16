@@ -3,19 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+  <settings>
+    <!--开启下换线装驼峰-->
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+
   <environments default="development">
     <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis?characterEncoding=utf-8"/>
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis?serverTimezone=UTC&amp;characterEncoding=utf-8"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
       </dataSource>
     </environment>
   </environments>
   <mappers>
-    <mapper resource="BlogsMapper.xml"/>
+    <mapper resource="mybatis/BlogsMapper.xml"/>
+    <mapper resource="mybatis/PaperMapper.xml"/>
     <!--<package name="org.apache.ibatis.test"/>-->
+    <!--<package name="com.gaoh.mybatis.mapper"/>-->
   </mappers>
 </configuration>

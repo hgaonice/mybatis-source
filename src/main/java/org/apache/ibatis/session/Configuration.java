@@ -155,6 +155,9 @@ public class Configuration {
   protected final TypeAliasRegistry typeAliasRegistry = new TypeAliasRegistry();
   protected final LanguageDriverRegistry languageRegistry = new LanguageDriverRegistry();
 
+  /**
+   * 存储SQL信息
+   */
   protected final Map<String, MappedStatement> mappedStatements = new StrictMap<MappedStatement>("Mapped Statements collection")
     .conflictMessageProducer((savedValue, targetValue) ->
       ". please check " + savedValue.getResource() + " and " + targetValue.getResource());
@@ -615,9 +618,11 @@ public class Configuration {
     } else {
       executor = new SimpleExecutor(this, transaction);
     }
+    //Mybatis默认开启二级缓存
     if (cacheEnabled) {
       executor = new CachingExecutor(executor);
     }
+    //拦截器执行链
     executor = (Executor) interceptorChain.pluginAll(executor);
     return executor;
   }
@@ -781,6 +786,14 @@ public class Configuration {
     mapperRegistry.addMapper(type);
   }
 
+  /**
+   * //从之前配置解析注册的mapper中，拿到mapper
+   *
+   * @param type
+   * @param sqlSession
+   * @param <T>
+   * @return
+   */
   public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
     return mapperRegistry.getMapper(type, sqlSession);
   }

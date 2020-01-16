@@ -17,13 +17,24 @@
 
 -->
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.apache.ibatis.test.BlogsMapper">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoh.mybatis.mapper.BlogsMapper">
 
-  <select id="selectAll" parameterType="org.apache.ibatis.test.Blogs"
-          resultType="org.apache.ibatis.test.Blogs">
+  <select id="selectAll" parameterType="com.gaoh.mybatis.model.Blogs"
+          resultType="com.gaoh.mybatis.model.Blogs">
     select * from blogs
+  </select>
+
+
+  <select id="selectById" parameterType="com.gaoh.mybatis.model.Blogs"
+          resultType="com.gaoh.mybatis.model.Blogs">
+    select * from blogs where id =${id}
+  </select>
+
+  <select id="selectByTitle" parameterType="com.gaoh.mybatis.model.Blogs"
+          resultType="com.gaoh.mybatis.model.Blogs">
+    select * from blogs where title =${title}
   </select>
 
 </mapper>

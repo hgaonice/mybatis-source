@@ -59,10 +59,6 @@ class AutoConstructorTest {
       final Object subject = mapper.getSubject(6);
       assertNotNull(subject);
       System.out.println(subject);
-     /* List<PrimitiveSubject> subjects = mapper.getSubjects();
-      for (PrimitiveSubject model : subjects) {
-        System.out.println(model);
-      }*/
     } catch (Exception e) {
       e.printStackTrace();
       System.out.println(e.getMessage());

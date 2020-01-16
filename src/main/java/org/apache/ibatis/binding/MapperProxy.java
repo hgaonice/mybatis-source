@@ -32,7 +32,7 @@ import org.apache.ibatis.session.SqlSession;
 /**
  * @author Clinton Begin
  * @author Eduardo Macarron
- *
+ * <p>
  * 对Mapper进行动态代理
  */
 public class MapperProxy<T> implements InvocationHandler, Serializable {
@@ -78,12 +78,24 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     lookupConstructor = lookup;
   }
 
+  /**
+   * 动态代理
+   *
+   * @param proxy
+   * @param method
+   * @param args
+   * @return
+   * @throws Throwable
+   */
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
+      //如果执行的是Object的方法则执行原方法
       if (Object.class.equals(method.getDeclaringClass())) {
         return method.invoke(this, args);
       } else {
+        //其实你执行mapper的时候、也就是执行了mybatis封装的一个MapperMethod、
+        //并且把sqlSession和执行的方法参数执行execute方法
         return cachedInvoker(proxy, method, args).invoke(proxy, method, args, sqlSession);
       }
     } catch (Throwable t) {
@@ -93,6 +105,8 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 
   private MapperMethodInvoker cachedInvoker(Object proxy, Method method, Object[] args) throws Throwable {
     try {
+      //https://blog.csdn.net/weixin_38229356/article/details/81129320
+      //从缓存中获取method  如果不存在就put进去
       return methodCache.computeIfAbsent(method, m -> {
         if (m.isDefault()) {
           try {
@@ -106,6 +120,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             throw new RuntimeException(e);
           }
         } else {
+          //动态代理
           return new PlainMethodInvoker(new MapperMethod(mapperInterface, method, sqlSession.getConfiguration()));
         }
       });
@@ -143,6 +158,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args, SqlSession sqlSession) throws Throwable {
+      //执行execute 方法
       return mapperMethod.execute(sqlSession, args);
     }
   }

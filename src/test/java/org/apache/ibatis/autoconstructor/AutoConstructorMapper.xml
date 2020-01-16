@@ -24,4 +24,9 @@
   <select id="selectAll" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
     select * from  extensive_subject;
   </select>
+
+  <select id="selectById" resultType="org.apache.ibatis.autoconstructor.PrimitiveSubject"
+  parameterType="org.apache.ibatis.autoconstructor.PrimitiveSubject">
+    select * from  extensive_subject where id = #{id};
+  </select>
 </mapper>
