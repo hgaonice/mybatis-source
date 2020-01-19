@@ -1,4 +1,4 @@
-package com.gaoh.mybatis.proxy;
+package com.gaoh.mybatis.proxy.jdkdynamic;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

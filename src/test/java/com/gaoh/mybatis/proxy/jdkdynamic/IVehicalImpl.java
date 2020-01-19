@@ -1,4 +1,4 @@
-package com.gaoh.mybatis.proxy;
+package com.gaoh.mybatis.proxy.jdkdynamic;
 
 /**
  * @author gaoh
