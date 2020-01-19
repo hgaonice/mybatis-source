@@ -27,8 +27,12 @@ import org.apache.ibatis.session.ResultHandler;
 
 /**
  * @author Clinton Begin
- *
+ * <p>
  * 封装了JDBC Statement操作，负责对JDBC statement 的操作，如设置参数、将Statement结果集转换成List集合
+ * <p>
+ * 创建 Statement 对象，为 SQL 语句绑定实参，执
+ * 行 select、 insert、 update 、 delete 等多种类型的 SQL 语句，批量执行 SQL 语句，将结果集映射
+ * 成结果对象
  */
 public interface StatementHandler {
 

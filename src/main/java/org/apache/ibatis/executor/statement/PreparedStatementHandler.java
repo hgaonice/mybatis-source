@@ -34,6 +34,9 @@ import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author Clinton Begin
+ * <p>
+ * 底层依赖于 java.sql.PreparedStatement 对象来完成数据库的相关操
+ * 作 ，默认的实现就是PreparedStatementHandler
  */
 public class PreparedStatementHandler extends BaseStatementHandler {
 
@@ -60,6 +63,7 @@ public class PreparedStatementHandler extends BaseStatementHandler {
 
   /**
    * 执行JDBC的相关操作
+   *
    * @param statement
    * @param resultHandler
    * @param <E>

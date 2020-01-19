@@ -33,6 +33,8 @@ import org.apache.ibatis.transaction.Transaction;
 
 /**
  * @author Clinton Begin
+ * <p>
+ * Mybatis执行Mapper语句时默认使用的Executor
  */
 public class SimpleExecutor extends BaseExecutor {
 
@@ -55,6 +57,7 @@ public class SimpleExecutor extends BaseExecutor {
 
   /**
    * 执行查询操作
+   *
    * @param ms
    * @param parameter
    * @param rowBounds

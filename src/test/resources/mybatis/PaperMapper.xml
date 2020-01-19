@@ -32,9 +32,9 @@
     select * from paper where id =${id}
   </select>
 
-  <select id="selectByTitle" parameterType="com.gaoh.mybatis.model.Paper"
+  <select id="selectByName" parameterType="com.gaoh.mybatis.model.Paper"
           resultType="com.gaoh.mybatis.model.Paper">
-    select * from paper where file_name =${fileName}
+    select * from paper where file_name =#{fileName}
   </select>
 
   <insert id="insert" parameterType="com.gaoh.mybatis.model.Paper">

@@ -13,7 +13,7 @@ public interface PaperMapper {
 
   List<Paper> selectAll();
 
-  List<Paper> selectByTitle(Paper model);
+  List<Paper> selectByName(Paper model);
 
   Paper selectById(Paper model);
 

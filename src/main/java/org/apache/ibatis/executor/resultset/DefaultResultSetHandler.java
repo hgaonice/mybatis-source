@@ -177,6 +177,14 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   //
   // HANDLE RESULT SETS
   //
+
+  /**
+   * 处理结果集
+   *
+   * @param stmt
+   * @return
+   * @throws SQLException
+   */
   @Override
   public List<Object> handleResultSets(Statement stmt) throws SQLException {
     ErrorContext.instance().activity("handling results").object(mappedStatement.getId());
@@ -191,6 +199,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
     validateResultMapsCount(rsw, resultMapCount);
     while (rsw != null && resultMapCount > resultSetCount) {
       ResultMap resultMap = resultMaps.get(resultSetCount);
+      //处理结果集
       handleResultSet(rsw, resultMap, multipleResults, null);
       rsw = getNextResultSet(stmt);
       cleanUpAfterHandlingResultSet();
@@ -394,6 +403,12 @@ public class DefaultResultSetHandler implements ResultSetHandler {
 
   /**
    * 得到行数据
+   * <p>
+   * 1.createResultObject方法：根据类型和配置信息生成对象。
+   * <p>
+   * 2.applyAutomaticMappings方法：判断是否是autoMapping="true"，如果是就是自动映射赋值。
+   * <p>
+   * 3.applyPropertyMappings方法：根据配置信息赋值。
    *
    * @param rsw
    * @param resultMap

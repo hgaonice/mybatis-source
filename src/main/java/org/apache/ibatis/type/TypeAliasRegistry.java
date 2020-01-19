@@ -34,11 +34,19 @@ import org.apache.ibatis.io.Resources;
 
 /**
  * @author Clinton Begin
+ * <p>
+ * 注册相关别名
  */
 public class TypeAliasRegistry {
 
+  /**
+   * 原来别名就仅仅通过一个HashMap来实现， key为别名， value就是别名对应的类型（class对象）
+   */
   private final Map<String, Class<?>> typeAliases = new HashMap<>();
 
+  /**
+   * 设置一些默认的别名
+   */
   public TypeAliasRegistry() {
     registerAlias("string", String.class);
 
@@ -102,6 +110,8 @@ public class TypeAliasRegistry {
 
   @SuppressWarnings("unchecked")
   // throws class cast exception as well if types cannot be assigned
+  // 处理别名， 直接从保存有别名的hashMap中取出即可
+  // 如果无法分配类型，也会引发类强制转换异常
   public <T> Class<T> resolveAlias(String string) {
     try {
       if (string == null) {
@@ -121,6 +131,11 @@ public class TypeAliasRegistry {
     }
   }
 
+  /**
+   * 配置文件中配置为package的时候， 会调用此方法，根据配置的报名去扫描javabean ，然后自动注册别名
+   * 默认会使用 Bean 的首字母小写的非限定类名来作为它的别名
+   * 也可在javabean 加上注解@Alias 来自定义别名， 例如： @Alias(user)
+   */
   public void registerAliases(String packageName) {
     registerAliases(packageName, Object.class);
   }
@@ -150,8 +165,8 @@ public class TypeAliasRegistry {
   /**
    * 注册别名
    *
-   * @param alias
-   * @param value
+   * @param alias 别名
+   * @param value 对象
    */
   public void registerAlias(String alias, Class<?> value) {
     if (alias == null) {
@@ -177,6 +192,7 @@ public class TypeAliasRegistry {
 
   /**
    * @since 3.2.2
+   * 获取保存别名的HashMap, Configuration对象持有对TypeAliasRegistry的引用，因此，如果需要，我们可以通过Configuration对象获取
    */
   public Map<String, Class<?>> getTypeAliases() {
     return Collections.unmodifiableMap(typeAliases);

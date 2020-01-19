@@ -48,7 +48,14 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class MapperMethod {
 
+  /**
+   * MapperMethod的一个成员内部类，有两个属性：name和Type。name成员就是节点的ID，type成员表示查寻还是更新或是删除
+   */
   private final SqlCommand command;
+
+  /**
+   * 用于说明方法的一些信息，主要有返回信息。
+   */
   private final MethodSignature method;
 
   public MapperMethod(Class<?> mapperInterface, Method method, Configuration config) {
@@ -57,7 +64,7 @@ public class MapperMethod {
   }
 
   /**
-   * 执行对于的SQL
+   * 执行对应的SQL
    *
    * @param sqlSession
    * @param args

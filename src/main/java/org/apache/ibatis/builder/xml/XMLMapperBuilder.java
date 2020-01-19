@@ -99,7 +99,7 @@ public class XMLMapperBuilder extends BaseBuilder {
       //关注mapper.xml的解析、里面解析了MappedStatement
       configurationElement(parser.evalNode("/mapper"));
       configuration.addLoadedResource(resource);
-      //这里注册mapper动态代理对象。并且注册注解的方法（@select等）成MappedStatement、详情看下面
+      //这里注册mapper动态代理对象。并且注册注解的方法（@select等）成MappedStatement
       bindMapperForNamespace();
     }
 

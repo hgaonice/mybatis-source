@@ -46,6 +46,9 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * @author Clinton Begin
+ * <p>
+ * BaseExecutor 是一个实现了 Executor 接口的抽象类 ，它实现了 Executor 接口的大部分方法，
+ * 其中就使用了模板方法模式。
  */
 public abstract class BaseExecutor implements Executor {
 

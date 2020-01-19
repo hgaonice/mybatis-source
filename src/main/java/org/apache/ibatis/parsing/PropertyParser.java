@@ -20,6 +20,8 @@ import java.util.Properties;
 /**
  * @author Clinton Begin
  * @author Kazuki Shimizu
+ *
+ * 解析${}这种形式的表达式
  */
 public class PropertyParser {
 

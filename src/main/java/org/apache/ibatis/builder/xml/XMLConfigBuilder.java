@@ -104,6 +104,7 @@ public class XMLConfigBuilder extends BaseBuilder {
   /**
    * 解析XML信息
    * url:https://blog.csdn.net/lchpersonal521/article/details/84451357
+   * configuration下面能配置的节点为以下11个节点
    *
    * @param root
    */
@@ -359,6 +360,11 @@ public class XMLConfigBuilder extends BaseBuilder {
     throw new BuilderException("Environment declaration requires a DataSourceFactory.");
   }
 
+  /**
+   * 解析XML中的类型处理
+   *
+   * @param parent
+   */
   private void typeHandlerElement(XNode parent) {
     if (parent != null) {
       for (XNode child : parent.getChildren()) {
