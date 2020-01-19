@@ -448,6 +448,17 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   // PROPERTY MAPPINGS
   //
 
+  /**
+   * 根据配置信息赋值。
+   *
+   * @param rsw
+   * @param resultMap
+   * @param metaObject
+   * @param lazyLoader
+   * @param columnPrefix
+   * @return
+   * @throws SQLException
+   */
   private boolean applyPropertyMappings(ResultSetWrapper rsw, ResultMap resultMap, MetaObject metaObject, ResultLoaderMap lazyLoader, String columnPrefix)
     throws SQLException {
     final List<String> mappedColumnNames = rsw.getMappedColumnNames(resultMap, columnPrefix);
@@ -548,7 +559,7 @@ public class DefaultResultSetHandler implements ResultSetHandler {
   }
 
   /**
-   * 处理结果集映射
+   * 处理结果集映射 判断是否是autoMapping="true"，如果是就是自动映射赋值。
    *
    * @param rsw
    * @param resultMap
