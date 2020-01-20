@@ -65,12 +65,16 @@ public class XMLScriptBuilder extends BaseBuilder {
 
   /**
    * 解析SQL
+   *
    * @return
    */
   public SqlSource parseScriptNode() {
+    //解析SQL语句节点，创建MixedSqlNode对象
     MixedSqlNode rootSqlNode = parseDynamicTags(context);
     SqlSource sqlSource;
+    //根据是否是动态的语句，创建DynamicSqlSource或是RawSqlSource对象，并返回
     if (isDynamic) {
+      //解析动态SQL
       sqlSource = new DynamicSqlSource(configuration, rootSqlNode);
     } else {
       sqlSource = new RawSqlSource(configuration, rootSqlNode, parameterType);
@@ -78,21 +82,36 @@ public class XMLScriptBuilder extends BaseBuilder {
     return sqlSource;
   }
 
+  /**
+   * 解析动态SQL
+   *
+   * @param node 节点
+   * @return
+   */
   protected MixedSqlNode parseDynamicTags(XNode node) {
     List<SqlNode> contents = new ArrayList<>();
+    //获取SQL下面的子节点
     NodeList children = node.getNode().getChildNodes();
+    //遍历子节点，解析成对应的sqlNode类型，并添加到contents中
     for (int i = 0; i < children.getLength(); i++) {
       XNode child = node.newXNode(children.item(i));
+      //如果是文本节点，则先解析成TextSqlNode对象
       if (child.getNode().getNodeType() == Node.CDATA_SECTION_NODE || child.getNode().getNodeType() == Node.TEXT_NODE) {
+        //获取文本信息
         String data = child.getStringBody("");
+        //创建TextSqlNode对象   解析 ${} 标签
         TextSqlNode textSqlNode = new TextSqlNode(data);
+        //判断是否是动态Sql，其过程会调用GenericTokenParser判断文本中是否含有"${"字符
         if (textSqlNode.isDynamic()) {
+          //如果是动态SQL,则直接使用TextSqlNode类型，并将isDynamic标识置为true
           contents.add(textSqlNode);
           isDynamic = true;
         } else {
+          //不是动态sql，则创建StaticTextSqlNode对象，表示静态SQL
           contents.add(new StaticTextSqlNode(data));
         }
       } else if (child.getNode().getNodeType() == Node.ELEMENT_NODE) { // issue #628
+        //其他类型的节点，由不同的节点处理器来对应处理成本成不同的SqlNode类型
         String nodeName = child.getNode().getNodeName();
         NodeHandler handler = nodeHandlerMap.get(nodeName);
         if (handler == null) {

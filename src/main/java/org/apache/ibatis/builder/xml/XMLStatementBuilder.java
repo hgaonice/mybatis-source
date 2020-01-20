@@ -75,6 +75,7 @@ public class XMLStatementBuilder extends BaseBuilder {
     XMLIncludeTransformer includeParser = new XMLIncludeTransformer(configuration, builderAssistant);
     includeParser.applyIncludes(context.getNode());
 
+    //参数类型
     String parameterType = context.getStringAttribute("parameterType");
     Class<?> parameterTypeClass = resolveClass(parameterType);
 
@@ -101,8 +102,10 @@ public class XMLStatementBuilder extends BaseBuilder {
     Integer fetchSize = context.getIntAttribute("fetchSize");
     Integer timeout = context.getIntAttribute("timeout");
     String parameterMap = context.getStringAttribute("parameterMap");
+    //返回值類型
     String resultType = context.getStringAttribute("resultType");
     Class<?> resultTypeClass = resolveClass(resultType);
+
     String resultMap = context.getStringAttribute("resultMap");
     String resultSetType = context.getStringAttribute("resultSetType");
     ResultSetType resultSetTypeEnum = resolveResultSetType(resultSetType);
@@ -119,6 +122,12 @@ public class XMLStatementBuilder extends BaseBuilder {
       keyGenerator, keyProperty, keyColumn, databaseId, langDriver, resultSets);
   }
 
+  /**
+   * 流程选择关键节点
+   * @param id
+   * @param parameterTypeClass
+   * @param langDriver
+   */
   private void processSelectKeyNodes(String id, Class<?> parameterTypeClass, LanguageDriver langDriver) {
     List<XNode> selectKeyNodes = context.evalNodes("selectKey");
     if (configuration.getDatabaseId() != null) {

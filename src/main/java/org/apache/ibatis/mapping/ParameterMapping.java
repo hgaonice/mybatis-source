@@ -24,6 +24,8 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
  * @author Clinton Begin
+ *
+ * 参数信息
  */
 public class ParameterMapping {
 

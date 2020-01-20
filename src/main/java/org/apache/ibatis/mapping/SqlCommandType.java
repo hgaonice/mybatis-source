@@ -17,7 +17,13 @@ package org.apache.ibatis.mapping;
 
 /**
  * @author Clinton Begin
+ * SQL的執行類型 枚舉
  */
 public enum SqlCommandType {
-  UNKNOWN, INSERT, UPDATE, DELETE, SELECT, FLUSH
+  UNKNOWN,
+  INSERT,
+  UPDATE,
+  DELETE,
+  SELECT,
+  FLUSH
 }

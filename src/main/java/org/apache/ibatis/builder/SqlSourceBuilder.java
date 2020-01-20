@@ -41,15 +41,19 @@ public class SqlSourceBuilder extends BaseBuilder {
 
   /**
    * 解析#{ }
+   *
    * @param originalSql
    * @param parameterType
    * @param additionalParameters
    * @return
    */
   public SqlSource parse(String originalSql, Class<?> parameterType, Map<String, Object> additionalParameters) {
+    //创建TokenHandler，用来将原始Sql中的'#{}' 解析成'?'
     ParameterMappingTokenHandler handler = new ParameterMappingTokenHandler(configuration, parameterType, additionalParameters);
     GenericTokenParser parser = new GenericTokenParser("#{", "}", handler);
+    //解析原始sql
     String sql = parser.parse(originalSql);
+    //创建出StaticSqlSource对象
     return new StaticSqlSource(configuration, sql, handler.getParameterMappings());
   }
 
@@ -71,7 +75,9 @@ public class SqlSourceBuilder extends BaseBuilder {
 
     @Override
     public String handleToken(String content) {
+      //解析'#{}'中的参数，创建ParameterMapping对象
       parameterMappings.add(buildParameterMapping(content));
+      //将'#{}'替换成'?'
       return "?";
     }
 

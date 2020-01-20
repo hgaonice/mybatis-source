@@ -31,6 +31,8 @@ import org.apache.ibatis.session.Configuration;
  * <p>
  * Can also have additional parameters that are created by the dynamic language (for loops, bind...).
  *
+ * 綁定的SQL信息
+ *
  * @author Clinton Begin
  */
 public class BoundSql {

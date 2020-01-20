@@ -139,6 +139,7 @@ public class XMLMapperBuilder extends BaseBuilder {
   }
 
   private void buildStatementFromContext(List<XNode> list, String requiredDatabaseId) {
+    //解析Mapper文件的逐个节点（insert select update delete）
     for (XNode context : list) {
       //可以看到这里有出现了Builder对象、XMLStatementBuilder
       final XMLStatementBuilder statementParser = new XMLStatementBuilder(configuration, builderAssistant, context, requiredDatabaseId);

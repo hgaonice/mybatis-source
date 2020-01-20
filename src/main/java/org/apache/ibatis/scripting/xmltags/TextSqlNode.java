@@ -24,7 +24,9 @@ import org.apache.ibatis.type.SimpleTypeRegistry;
 
 /**
  * @author Clinton Begin
- */
+ *
+ * 解析 ${} 标签
+  */
 public class TextSqlNode implements SqlNode {
   private final String text;
   private final Pattern injectionFilter;
