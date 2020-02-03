@@ -34,6 +34,9 @@ import org.apache.ibatis.session.SqlSession;
 public class MapperRegistry {
 
   private final Configuration config;
+  /**
+   * 这个类中维护一个HashMap存放MapperProxyFactory
+   */
   private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
 
   public MapperRegistry(Configuration config) {
@@ -60,7 +63,7 @@ public class MapperRegistry {
 
   /**
    * 注册mapper
-   *
+   * 解析到接口时添加接口工厂类的方法
    * @param type
    * @param <T>
    */
@@ -71,6 +74,7 @@ public class MapperRegistry {
       }
       boolean loadCompleted = false;
       try {
+        //以接口类的class对象为key，value为其对应的工厂对象，构造方法中指定了接口对象
         knownMappers.put(type, new MapperProxyFactory<>(type));
         // It's important that the type is added before the parser is run
         // otherwise the binding may automatically be attempted by the

@@ -131,6 +131,10 @@ public class JdbcTransaction implements Transaction {
     }
   }
 
+  /**
+   * 从连接池获得连接的方法
+   * @throws SQLException
+   */
   protected void openConnection() throws SQLException {
     if (log.isDebugEnabled()) {
       log.debug("Opening JDBC Connection");

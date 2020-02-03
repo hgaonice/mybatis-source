@@ -72,7 +72,9 @@ public class SimpleExecutor extends BaseExecutor {
     Statement stmt = null;
     try {
       Configuration configuration = ms.getConfiguration();
+      //传入参数创建StatementHanlder对象来执行查询
       StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+      //创建jdbc中的statement对象
       stmt = prepareStatement(handler, ms.getStatementLog());
       return handler.query(stmt, resultHandler);
     } finally {
@@ -97,8 +99,11 @@ public class SimpleExecutor extends BaseExecutor {
 
   private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
     Statement stmt;
+    //getConnection方法经过重重调用最后会调用openConnection方法，从连接池中获得连接。
     Connection connection = getConnection(statementLog);
     stmt = handler.prepare(connection, transaction.getTimeout());
+    //SatementHanlder 采用PreparedStatementHandler来实现此方法，
+    //而PreparedStatementHandler调用的是父接口ParameterHandler的方法
     handler.parameterize(stmt);
     return stmt;
   }

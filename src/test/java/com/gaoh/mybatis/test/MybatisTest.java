@@ -108,6 +108,5 @@ public class MybatisTest {
     paperModel.setFileName("文件");
     List<Paper> papers = mapper.selectByName(paperModel);
     System.out.println(papers);
-
   }
 }
